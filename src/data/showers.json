@@ -1,0 +1,84 @@
+{
+  "data": [
+    {
+      "id": "1",
+      "name": "Annet",
+      "minPrice": 4000,
+      "maxPrice": 15000,
+      "elements": [
+        {
+          "id": "1",
+          "title": "Door 1",
+          "type": "WIDTH",
+          "minValue": 800,
+          "maxValue": 1200,
+          "defaultValue": 1000
+        },
+        {
+          "id": "2",
+          "title": "Door 2",
+          "type": "WIDTH",
+          "minValue": 800,
+          "maxValue": 1200,
+          "defaultValue": 1000
+        },
+        {
+          "id": "3",
+          "title": "Construction height",
+          "type": "HEIGHT",
+          "minValue": 1500,
+          "maxValue": 3000,
+          "defaultValue": 2000
+        }
+      ],
+      "bindings": [
+        {
+          "id": "1",
+          "title": "Profile",
+          "price": 4500
+        },
+        {
+          "id": "2",
+          "title": "Invisible",
+          "price": 6000
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Verona",
+      "minPrice": 4000,
+      "maxPrice": 15000,
+      "elements": [
+        {
+          "id": "1",
+          "title": "Door 1",
+          "type": "WIDTH",
+          "minValue": 800,
+          "maxValue": 1200,
+          "defaultValue": 1000
+        },
+        {
+          "id": "3",
+          "title": "Construction height",
+          "type": "HEIGHT",
+          "minValue": 1500,
+          "maxValue": 3000,
+          "defaultValue": 2000
+        }
+      ],
+      "bindings": [
+        {
+          "id": "1",
+          "title": "Profile",
+          "price": 4500
+        },
+        {
+          "id": "2",
+          "title": "Invisible",
+          "price": 6000
+        }
+      ]
+    }
+  ]
+}
