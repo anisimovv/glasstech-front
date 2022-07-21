@@ -1,10 +1,16 @@
 import { gql } from "@apollo/client";
 import type { GetStaticProps, NextPage } from "next";
 import client from "../../apollo-client";
+import Layout from "../components/Layout";
+import Shower from "../components/Shower";
 import { IShower } from "../types";
 
 const Home: NextPage<{ showers: IShower[] }> = ({ showers }) => {
-  return <div />;
+  return (
+    <Layout>
+      <Shower showers={showers} />
+    </Layout>
+  );
 };
 
 export default Home;
@@ -42,3 +48,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
     },
   };
 };
+function initializeApollo() {
+  throw new Error("Function not implemented.");
+}
