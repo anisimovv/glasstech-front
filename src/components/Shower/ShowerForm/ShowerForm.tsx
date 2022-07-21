@@ -1,5 +1,7 @@
 import React from "react";
-import { IElement, IShower } from "../../../types";
+import { Listbox, Transition } from "@headlessui/react";
+
+import { IBinding, IElement, IShower } from "../../../types";
 import { useShowerData } from "../shower-context";
 import ShowerElementInput from "../ShowerElementInput";
 
@@ -9,6 +11,10 @@ type Props = {
 
 export const ShowerForm = ({ shower }: Props) => {
   const { state, dispatch } = useShowerData();
+
+  React.useEffect(() => {
+    dispatch({ type: "setBindingType", payload: shower.bindings[0] });
+  }, [shower, dispatch]);
 
   const { showerElementsInput } = state;
 
@@ -58,20 +64,38 @@ export const ShowerForm = ({ shower }: Props) => {
     }
   };
 
+  const handleBindingChange = (binding: IBinding) => {
+    dispatch({ type: "setBindingType", payload: binding });
+  };
+
   return (
     <div className="p-8 grow">
-      {shower.elements.map((element) => {
-        return (
-          <ShowerElementInput
-            key={element.id}
-            title={element.title}
-            value={showerElementsInput[element.id] ?? element.defaultValue}
-            name={element.id}
-            onChange={handleElementFieldChange}
-            onBlur={handleElementFieldFocus}
-          />
-        );
-      })}
+      <div className="mb-6">
+        {shower.elements.map((element) => {
+          return (
+            <ShowerElementInput
+              key={element.id}
+              title={element.title}
+              value={showerElementsInput[element.id] ?? element.defaultValue}
+              name={element.id}
+              onChange={handleElementFieldChange}
+              onBlur={handleElementFieldFocus}
+            />
+          );
+        })}
+      </div>
+      <div>
+        <Listbox value={state.binding} onChange={handleBindingChange}>
+          <Listbox.Button>{state.binding?.title || ""}</Listbox.Button>
+          <Listbox.Options>
+            {shower.bindings.map((binding) => (
+              <Listbox.Option key={binding.id} value={binding}>
+                {binding.title}
+              </Listbox.Option>
+            ))}
+          </Listbox.Options>
+        </Listbox>
+      </div>
     </div>
   );
 };
