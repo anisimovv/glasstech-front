@@ -24,4 +24,8 @@ export interface IShower {
   bindings: IBinding[];
 }
 
-export type FieldsState = Record<string, string> | null;
+export interface IGlass {
+  id: string;
+  name: string;
+  price: number;
+}

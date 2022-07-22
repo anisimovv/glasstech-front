@@ -1,20 +1,22 @@
 import React from "react";
 import { Listbox, Transition } from "@headlessui/react";
 
-import { IBinding, IElement, IShower } from "../../../types";
+import { IBinding, IElement, IGlass, IShower } from "../../../types";
 import { useShowerData } from "../shower-context";
 import ShowerElementInput from "../ShowerElementInput";
 
 type Props = {
   shower: IShower;
+  glass: IGlass[];
 };
 
-export const ShowerForm = ({ shower }: Props) => {
+export const ShowerForm = ({ shower, glass }: Props) => {
   const { state, dispatch } = useShowerData();
 
   React.useEffect(() => {
     dispatch({ type: "setBindingType", payload: shower.bindings[0] });
-  }, [shower, dispatch]);
+    dispatch({type: 'setGlass', payload: glass[0]})
+  }, [shower, glass, dispatch]);
 
   const { showerElementsInput } = state;
 
@@ -68,6 +70,10 @@ export const ShowerForm = ({ shower }: Props) => {
     dispatch({ type: "setBindingType", payload: binding });
   };
 
+  const handleGlassChange = (glass: IGlass) => {
+    dispatch({type: "setGlass", payload: glass})
+  }
+
   return (
     <div className="p-8 grow">
       <div className="mb-6">
@@ -91,6 +97,18 @@ export const ShowerForm = ({ shower }: Props) => {
             {shower.bindings.map((binding) => (
               <Listbox.Option key={binding.id} value={binding}>
                 {binding.title}
+              </Listbox.Option>
+            ))}
+          </Listbox.Options>
+        </Listbox>
+      </div>
+      <div>
+        <Listbox value={state.glass} onChange={handleGlassChange}>
+          <Listbox.Button>{state.glass?.name || ""}</Listbox.Button>
+          <Listbox.Options>
+            {glass.map((glass) => (
+              <Listbox.Option key={glass.id} value={glass}>
+                {glass.name}
               </Listbox.Option>
             ))}
           </Listbox.Options>

@@ -9,12 +9,14 @@ type Props = {
 
 export const TotalPrice = ({ shower }: Props) => {
   const { state } = useShowerData();
+
   const squareOfGlass = useGlassCalculations(shower);
+  const glassPrice = squareOfGlass * (state.glass?.price || 0);
+  const total = glassPrice + (state.binding?.price || 0);
 
   return (
     <>
-      <div>{`square of glass = ${squareOfGlass}`}</div>
-      <div>{`binding price = ${state.binding?.price || 0}`}</div>
+      <h1>{`Total ${total}`}</h1>
     </>
   );
 };

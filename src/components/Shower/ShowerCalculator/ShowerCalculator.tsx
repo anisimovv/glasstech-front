@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { IShower } from "../../../types";
+import { useGetGlass } from "../../hooks/api/useGetGlass";
 import { useGetShowers } from "../../hooks/api/useGetShowers";
 import { ShowerDataProvider, useShowerData } from "../shower-context";
 import ShowerForm from "../ShowerForm";
@@ -8,14 +9,18 @@ import TotalPrice from "../TotalPrice";
 
 const ShowerCalculatorComponent = () => {
   const { showers } = useGetShowers();
+  const { glass } = useGetGlass();
   const { state } = useShowerData();
 
-  
-  if (!showers) {
-    return <h1>Loading</h1>
+  const loading = !showers || !glass;
+
+  if (loading) {
+    return (
+      <div className="flex max-w-[600px] min-h-[200px] mx-auto mt-[-80px] bg-slate-50 rounded-lg overflow-hidden drop-shadow-lg">
+        <h1>Loading</h1>
+      </div>
+    );
   }
-  
-  const currentShower = showers[state.currentShowerIndex];
 
   return (
     <div className="flex max-w-[600px] mx-auto mt-[-80px] bg-slate-50 rounded-lg overflow-hidden drop-shadow-lg">
@@ -29,7 +34,7 @@ const ShowerCalculatorComponent = () => {
         </div>
         <TotalPrice shower={showers[state.currentShowerIndex]} />
       </div>
-      <ShowerForm shower={currentShower} />
+      <ShowerForm shower={showers[state.currentShowerIndex]} glass={glass} />
     </div>
   );
 };

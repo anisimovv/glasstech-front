@@ -1,5 +1,5 @@
 import * as React from "react";
-import { IBinding } from "../../types";
+import { IBinding, IGlass } from "../../types";
 
 type Action =
   | { type: "setCurrentShowerIndex" }
@@ -7,12 +7,14 @@ type Action =
       type: "setShowerElementInput";
       payload: { id: string; value: string };
     }
-  | { type: "setBindingType"; payload: IBinding };
+  | { type: "setBindingType"; payload: IBinding }
+  | { type: "setGlass"; payload: IGlass };
 type Dispatch = (action: Action) => void;
 type State = {
   currentShowerIndex: number;
   showerElementsInput: Record<string, string>;
   binding: IBinding | null;
+  glass: IGlass | null;
 };
 type ShowerDataProviderProps = { children: React.ReactNode };
 
@@ -20,6 +22,7 @@ const initialstate: State = {
   currentShowerIndex: 0,
   showerElementsInput: {},
   binding: null,
+  glass: null
 };
 
 const ShowerDataContext = React.createContext<
@@ -44,6 +47,12 @@ function countReducer(state: State, action: Action) {
       return {
         ...state,
         binding: action.payload,
+      };
+
+    case "setGlass":
+      return {
+        ...state,
+        glass: action.payload,
       };
 
     default: {
