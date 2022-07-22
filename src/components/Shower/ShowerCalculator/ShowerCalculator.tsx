@@ -1,17 +1,20 @@
 import { useState } from "react";
 import { IShower } from "../../../types";
+import { useGetShowers } from "../../hooks/api/useGetShowers";
 import { ShowerDataProvider, useShowerData } from "../shower-context";
 import ShowerForm from "../ShowerForm";
 import ShowerPicker from "../ShowerPicker";
 import TotalPrice from "../TotalPrice";
 
-type Props = {
-  showers: IShower[];
-};
-
-const ShowerCalculatorComponent = ({ showers }: Props) => {
+const ShowerCalculatorComponent = () => {
+  const { showers } = useGetShowers();
   const { state } = useShowerData();
 
+  
+  if (!showers) {
+    return <h1>Loading</h1>
+  }
+  
   const currentShower = showers[state.currentShowerIndex];
 
   return (
@@ -31,10 +34,10 @@ const ShowerCalculatorComponent = ({ showers }: Props) => {
   );
 };
 
-export const ShowerCalculator = ({ showers }: Props) => {
+export const ShowerCalculator = () => {
   return (
     <ShowerDataProvider>
-      <ShowerCalculatorComponent showers={showers} />
+      <ShowerCalculatorComponent />
     </ShowerDataProvider>
   );
 };

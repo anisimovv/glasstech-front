@@ -1,11 +1,15 @@
+import { InputHTMLAttributes } from "react";
 import Input from "../../Input";
 
-type Props = {
+interface ShowerElementInputProps
+  extends InputHTMLAttributes<HTMLInputElement> {
   title: string;
-  value: string;
-};
+}
 
-export const ShowerElementInput = ({ title, ...props }: Props) => {
+export const ShowerElementInput = ({
+  title,
+  ...props
+}: ShowerElementInputProps) => {
   return (
     <label className="flex w-full items-center justify-between mb-4 last:mb-0">
       <div>

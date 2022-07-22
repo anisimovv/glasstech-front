@@ -1,12 +1,13 @@
-type Props = {
-  value: any;
-  width: number;
-};
+import { InputHTMLAttributes } from "react";
 
-export const Input = ({ value, width, ...props }: Props) => {
+interface ShowerElementInputProps
+  extends InputHTMLAttributes<HTMLInputElement> {
+  width: number | string;
+}
+
+export const Input = ({ width, ...props }: ShowerElementInputProps) => {
   return (
     <input
-      value={value}
       className="border border-slate-300 h-10 rounded-lg px-4 text-right"
       style={{ width: width || "100%" }}
       {...props}
