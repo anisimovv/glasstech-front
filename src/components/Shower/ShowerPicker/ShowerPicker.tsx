@@ -2,10 +2,6 @@ import { IShower } from "../../../types";
 import { useGetShowers } from "../../hooks/api/useGetShowers";
 import { useShowerData } from "../shower-context";
 
-type Props = {
-  showers: IShower[];
-};
-
 export const ShowerPicker = () => {
   const { showers } = useGetShowers();
   const { state, dispatch } = useShowerData();

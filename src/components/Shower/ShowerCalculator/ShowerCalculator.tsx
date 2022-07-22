@@ -30,7 +30,7 @@ const ShowerCalculatorComponent = () => {
         </h1>
 
         <div className="flex-grow">
-          <ShowerPicker showers={showers} />
+          <ShowerPicker />
         </div>
         <TotalPrice shower={showers[state.currentShowerIndex]} />
       </div>
