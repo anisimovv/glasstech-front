@@ -1,5 +1,5 @@
 import useSWR from "swr";
-import { IGlass, IShower } from "../../../types";
+import { IGlass, IShower } from "../../types";
 
 const query = `{
   glass {

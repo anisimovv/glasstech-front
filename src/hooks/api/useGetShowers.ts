@@ -1,5 +1,5 @@
 import useSWR from "swr";
-import { IShower } from "../../../types";
+import { IShower } from "../../types";
 
 const query = `{
    showers {

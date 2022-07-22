@@ -1,5 +1,5 @@
 import { IShower } from "../../../types";
-import { useGetShowers } from "../../hooks/api/useGetShowers";
+import { useGetShowers } from "../../../hooks/api/useGetShowers";
 import { useShowerData } from "../shower-context";
 
 export const ShowerPicker = () => {

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { IShower } from "../../../types";
-import { useGetGlass } from "../../hooks/api/useGetGlass";
-import { useGetShowers } from "../../hooks/api/useGetShowers";
+import { useGetGlass } from "../../../hooks/api/useGetGlass";
+import { useGetShowers } from "../../../hooks/api/useGetShowers";
 import { ShowerDataProvider, useShowerData } from "../shower-context";
 import ShowerForm from "../ShowerForm";
 import ShowerPicker from "../ShowerPicker";
@@ -16,15 +16,15 @@ const ShowerCalculatorComponent = () => {
 
   if (loading) {
     return (
-      <div className="flex max-w-[600px] min-h-[200px] mx-auto mt-[-80px] bg-slate-50 rounded-lg overflow-hidden drop-shadow-lg">
+      <div className="flex max-w-[600px] min-h-[200px] mx-auto mt-[-80px] bg-slate-50 rounded-lg drop-shadow-lg">
         <h1>Loading</h1>
       </div>
     );
   }
 
   return (
-    <div className="flex max-w-[600px] mx-auto mt-[-80px] bg-slate-50 rounded-lg overflow-hidden drop-shadow-lg">
-      <div className="flex flex-col w-[240px] bg-white">
+    <div className="flex max-w-[600px] mx-auto mt-[-80px] bg-slate-50 rounded-lg drop-shadow-lg">
+      <div className="flex flex-col w-[240px] shrink-0 bg-white rounded-l-lg" >
         <h1 className="mx-4 my-8 text-2xl text-slate-900">
           {showers[state.currentShowerIndex].name}
         </h1>
