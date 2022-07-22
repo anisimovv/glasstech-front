@@ -2,7 +2,7 @@ import * as React from "react";
 import { IBinding, IGlass } from "../../types";
 
 type Action =
-  | { type: "setCurrentShowerIndex" }
+  | { type: "setCurrentShowerIndex"; payload: number }
   | {
       type: "setShowerElementInput";
       payload: { id: string; value: string };
@@ -22,7 +22,7 @@ const initialstate: State = {
   currentShowerIndex: 0,
   showerElementsInput: {},
   binding: null,
-  glass: null
+  glass: null,
 };
 
 const ShowerDataContext = React.createContext<
@@ -32,7 +32,7 @@ const ShowerDataContext = React.createContext<
 function countReducer(state: State, action: Action) {
   switch (action.type) {
     case "setCurrentShowerIndex":
-      return state;
+      return { ...state, currentShowerIndex: action.payload };
 
     case "setShowerElementInput":
       return {

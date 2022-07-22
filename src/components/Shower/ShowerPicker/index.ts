@@ -1,3 +1,3 @@
-import { ShowerPicker } from "./ShoerPicker";
+import { ShowerPicker } from "./ShowerPicker";
 
 export default ShowerPicker;
