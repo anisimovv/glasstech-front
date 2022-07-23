@@ -16,7 +16,13 @@ export const TotalPrice = ({ shower }: Props) => {
 
   return (
     <>
-      <h1>{`Total ${total}`}</h1>
+      <div className="flex justify-between items-center p-4 border-t-2 border-slate-50">
+        <div className="w-1/2">
+          <h2 className="text-lg text-slate-700">Total price</h2>
+          <h3 className="text-xs text-slate-400 leading-tight">Tax and delivery included</h3>
+        </div>
+        <strong className="text-2xl font-normal text-slate-900">{`$${total}`}</strong>
+      </div>
     </>
   );
 };
