@@ -1,21 +1,28 @@
-import React, { ComponentType, Fragment } from "react";
-import { Listbox, Transition } from "@headlessui/react";
+import React, { ComponentType, Fragment, useContext } from "react";
+import { Listbox, Portal, Transition } from "@headlessui/react";
 import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
+import { usePopper } from "react-popper";
 
 type ExtractProps<T> = T extends ComponentType<infer P> ? P : T;
+
+export const ListboxContext = React.createContext<any>(undefined);
 
 export const ListboxStyled = ({
   children,
   className,
   ...props
 }: ExtractProps<typeof Listbox>) => {
+  const [targetElement, setTargetElement] = React.useState(null);
+
   const customClassNames = "relative";
 
   return (
     <Listbox {...props}>
-      <div className={`${customClassNames} ${className}`}>
-        {children as React.ReactNode}
-      </div>
+      <ListboxContext.Provider value={{ targetElement, setTargetElement }}>
+        <div className={`${customClassNames} ${className}`}>
+          {children as React.ReactNode}
+        </div>
+      </ListboxContext.Provider>
     </Listbox>
   );
 };
@@ -24,8 +31,10 @@ const Button = ({
   children,
   ...props
 }: ExtractProps<typeof Listbox.Button>) => {
+  const { setTargetElement } = useContext(ListboxContext);
   return (
     <Listbox.Button
+      ref={setTargetElement}
       className="relative w-full rounded-lg bg-white h-10 pl-4 pr-10 text-left border border-slate-300"
       {...props}
     >
@@ -43,20 +52,53 @@ const Options = ({
   children,
   ...props
 }: ExtractProps<typeof Listbox.Options>) => {
+  const popperElRef = React.useRef(null);
+  const { targetElement } = useContext(ListboxContext);
+  const [popperElement, setPopperElement] = React.useState(null);
+
+  const modifiers = React.useMemo(
+    () => [
+      {
+        name: "sameWidth",
+        enabled: true,
+        fn: ({ state }: any) => {
+          state.styles.popper.width = `${state.rects.reference.width}px`;
+        },
+        phase: "beforeWrite",
+        requires: ["computeStyles"],
+      },
+    ],
+    []
+  );
+
+  const { styles, attributes } = usePopper(targetElement, popperElement, {
+    placement: "bottom-start",
+    modifiers,
+  });
+
   return (
-    <Transition
-      as={Fragment}
-      leave="transition ease-in duration-100"
-      leaveFrom="opacity-100"
-      leaveTo="opacity-0"
-    >
-      <Listbox.Options
-        className="absolute left-0 right-0 mt-1 max-h-60 overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-10"
-        {...props}
-      >
-        {children as React.ReactNode}
-      </Listbox.Options>
-    </Transition>
+    <Portal>
+      <div ref={popperElRef} style={styles.popper} {...attributes.popper}>
+        <Transition
+          // show={open}
+          enter="transition ease-out duration-100"
+          enterFrom="transform opacity-0 scale-95"
+          enterTo="transform opacity-100 scale-100"
+          leave="transition ease-in duration-75"
+          leaveFrom="transform opacity-100 scale-100"
+          leaveTo="transform opacity-0 scale-95"
+          beforeEnter={() => setPopperElement(popperElRef.current)}
+          afterLeave={() => setPopperElement(null)}
+        >
+          <Listbox.Options
+            className="mt-1 max-h-60 overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-10"
+            {...props}
+          >
+            {children as React.ReactNode}
+          </Listbox.Options>
+        </Transition>
+      </div>
+    </Portal>
   );
 };
 
