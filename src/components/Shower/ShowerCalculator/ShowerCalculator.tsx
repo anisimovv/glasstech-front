@@ -23,8 +23,8 @@ const ShowerCalculatorComponent = () => {
   }
 
   return (
-    <div className="flex max-w-[600px] mx-auto mt-[-80px] bg-slate-50 rounded-lg drop-shadow-lg">
-      <div className="flex flex-col w-[240px] shrink-0 bg-white rounded-l-lg" >
+    <div className="flex flex-col sm:flex-row max-w-[600px] mx-4 sm:mx-auto mt-[-100px] bg-slate-50 rounded-lg drop-shadow-lg overflow-hidden">
+      <div className="flex flex-col sm:w-[240px] shrink-0 bg-white rounded-l-lg" >
         <h1 className="mx-4 mt-8 text-2xl text-slate-900">
           {showers[state.currentShowerIndex].name}
         </h1>
