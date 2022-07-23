@@ -38,7 +38,7 @@ const Button = ({
       className="relative w-full rounded-lg bg-white h-10 pl-4 pr-10 text-left border border-slate-300"
       {...props}
     >
-      <span className="block truncate text-slate-900">
+      <span className="block truncate text-slate-700">
         {children as React.ReactNode}
       </span>
       <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
@@ -56,29 +56,17 @@ const Options = ({
   const { targetElement } = useContext(ListboxContext);
   const [popperElement, setPopperElement] = React.useState(null);
 
-  const modifiers = React.useMemo(
-    () => [
-      {
-        name: "sameWidth",
-        enabled: true,
-        fn: ({ state }: any) => {
-          state.styles.popper.width = `${state.rects.reference.width}px`;
-        },
-        phase: "beforeWrite",
-        requires: ["computeStyles"],
-      },
-    ],
-    []
-  );
-
   const { styles, attributes } = usePopper(targetElement, popperElement, {
     placement: "bottom-start",
-    modifiers,
   });
 
   return (
     <Portal>
-      <div ref={popperElRef} style={styles.popper} {...attributes.popper}>
+      <div
+        ref={popperElRef}
+        style={{ ...styles.popper, width: targetElement?.scrollWidth }}
+        {...attributes.popper}
+      >
         <Transition
           // show={open}
           enter="transition ease-out duration-100"
@@ -110,7 +98,7 @@ const Option = ({
     <Listbox.Option
       className={({ active }) =>
         `relative cursor-pointer select-none py-2 pl-10 pr-4 ${
-          active ? "bg-cyan-50 text-cyan-900" : "text-slate-900"
+          active ? "bg-cyan-50 text-cyan-700" : "text-slate-700"
         }`
       }
       {...props}
@@ -119,7 +107,7 @@ const Option = ({
         <>
           <span
             className={`block truncate ${
-              selected ? "font-medium" : "font-normal"
+              selected ? "text-cyan-700" : "font-normal"
             }`}
           >
             {children as React.ReactNode}
