@@ -20,6 +20,7 @@ export interface IShower {
   name: string;
   minPrice: number;
   maxPrice: number;
+  image: string | null;
   elements: IElement[];
   bindings: IBinding[];
 }

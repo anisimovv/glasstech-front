@@ -10,7 +10,6 @@ import TotalPrice from "../TotalPrice";
 const ShowerCalculatorComponent = () => {
   const { showers } = useGetShowers();
   const { glass } = useGetGlass();
-
   const { state } = useShowerData();
 
   const loading = !showers || !glass;
@@ -23,19 +22,19 @@ const ShowerCalculatorComponent = () => {
     );
   }
 
+  const shower = showers[state.currentShowerIndex];
+
   return (
     <div className="flex flex-col sm:flex-row max-w-[600px] mx-4 sm:mx-auto mt-[-100px] bg-slate-50 rounded-lg drop-shadow-lg overflow-hidden">
       <div className="flex flex-col sm:w-[240px] shrink-0 bg-white rounded-l-lg">
-        <h1 className="mx-4 mt-8 text-2xl text-slate-900">
-          {showers[state.currentShowerIndex].name}
-        </h1>
+        <h1 className="mx-4 mt-8 text-2xl text-slate-900">{shower.name}</h1>
 
         <div className="flex-grow">
-          <ShowerPicker />
+          <ShowerPicker shower={shower} />
         </div>
-        <TotalPrice shower={showers[state.currentShowerIndex]} />
+        <TotalPrice shower={shower} />
       </div>
-      <ShowerForm shower={showers[state.currentShowerIndex]} glass={glass} />
+      <ShowerForm shower={shower} glass={glass} />
     </div>
   );
 };

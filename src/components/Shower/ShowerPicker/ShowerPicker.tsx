@@ -1,10 +1,15 @@
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/outline";
 import Image from "next/image";
 import { useGetShowers } from "../../../hooks/api/useGetShowers";
+import { IShower } from "../../../types";
 import NavigationDots from "../../NavigationDots";
 import { useShowerData } from "../shower-context";
 
-export const ShowerPicker = () => {
+type Props = {
+  shower: IShower;
+};
+
+export const ShowerPicker = ({ shower }: Props) => {
   const { showers } = useGetShowers();
   const { state, dispatch } = useShowerData();
 
@@ -35,12 +40,21 @@ export const ShowerPicker = () => {
         <span className="hidden">Previous shower</span>
         <ChevronLeftIcon className="w-8 h-8 text-cyan-500" />
       </button>
-      <Image
-        src="https://glasstech.anisimovv.com/images/cabins/california.jpeg"
-        width="156"
-        height="250"
-        alt={"picture"} // TODO
-      />
+      {shower.image ? (
+        <Image
+          src={shower.image}
+          width="156"
+          height="250"
+          alt="shower picture"
+        />
+      ) : (
+        <Image
+          src="https://glasstech.anisimovv.com/images/cabins/california.jpeg"
+          width="156"
+          height="250"
+          alt="shower picture"
+        />
+      )}
       <div className="absolute bottom-4">
         <NavigationDots
           length={showers?.length as number}

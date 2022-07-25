@@ -7,6 +7,7 @@ const query = `{
      name
      minPrice
      maxPrice
+     image
      elements {
        id
        title
