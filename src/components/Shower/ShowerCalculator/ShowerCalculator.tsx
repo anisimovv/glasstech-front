@@ -5,6 +5,7 @@ import { ShowerDataProvider, useShowerData } from "../shower-context";
 
 import ShowerForm from "../ShowerForm";
 import ShowerPicker from "../ShowerPicker";
+import ShowerSkeleton from "../ShowerSkeleton";
 import TotalPrice from "../TotalPrice";
 
 const ShowerCalculatorComponent = () => {
@@ -15,11 +16,7 @@ const ShowerCalculatorComponent = () => {
   const loading = !showers || !glass;
 
   if (loading) {
-    return (
-      <div className="flex max-w-[600px] min-h-[200px] mx-auto mt-[-80px] bg-slate-50 rounded-lg drop-shadow-lg">
-        <h1>Loading</h1>
-      </div>
-    );
+    return <ShowerSkeleton />;
   }
 
   const shower = showers[state.currentShowerIndex];
