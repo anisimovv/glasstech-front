@@ -1,9 +1,11 @@
 import React from "react";
 
-import { IBinding, IElement, IGlass, IShower } from "../../../types";
+import { IGlass, IShower } from "../../../types";
 import { useShowerData } from "../shower-context";
+
 import ShowerElementInput from "../ShowerElementInput";
-import Listbox from "../../Listbox";
+import ShowerBindingSelect from "../ShowerBindingSelect";
+import ShowerGlassSelect from "../ShowerGlassSelect";
 
 type Props = {
   shower: IShower;
@@ -11,20 +13,12 @@ type Props = {
 };
 
 export const ShowerForm = ({ shower, glass }: Props) => {
-  const { state, dispatch } = useShowerData();
+  const { dispatch } = useShowerData();
 
   React.useEffect(() => {
     dispatch({ type: "setBindingType", payload: shower.bindings[0] });
     dispatch({ type: "setGlass", payload: glass[0] });
   }, [shower, glass, dispatch]);
-
-  const handleBindingChange = (binding: IBinding) => {
-    dispatch({ type: "setBindingType", payload: binding });
-  };
-
-  const handleGlassChange = (glass: IGlass) => {
-    dispatch({ type: "setGlass", payload: glass });
-  };
 
   return (
     <div className="p-8 grow overflow-hidden">
@@ -39,34 +33,8 @@ export const ShowerForm = ({ shower, glass }: Props) => {
           );
         })}
       </div>
-      <div>
-        <Listbox
-          value={state.binding}
-          onChange={handleBindingChange}
-          className="mb-4"
-        >
-          <Listbox.Button>{state.binding?.title || ""}</Listbox.Button>
-          <Listbox.Options>
-            {shower.bindings.map((binding) => (
-              <Listbox.Option key={binding.id} value={binding}>
-                {binding.title}
-              </Listbox.Option>
-            ))}
-          </Listbox.Options>
-        </Listbox>
-      </div>
-      <div>
-        <Listbox value={state.glass} onChange={handleGlassChange}>
-          <Listbox.Button>{state.glass?.name || ""}</Listbox.Button>
-          <Listbox.Options>
-            {glass.map((glass) => (
-              <Listbox.Option key={glass.id} value={glass}>
-                {glass.name}
-              </Listbox.Option>
-            ))}
-          </Listbox.Options>
-        </Listbox>
-      </div>
+      <ShowerBindingSelect bindings={shower.bindings} />
+      <ShowerGlassSelect glass={glass} />
     </div>
   );
 };
