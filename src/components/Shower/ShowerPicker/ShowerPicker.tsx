@@ -46,13 +46,17 @@ export const ShowerPicker = ({ shower }: Props) => {
           width="156"
           height="250"
           alt="shower picture"
+          placeholder="blur"
+          blurDataURL="https://glasstech.anisimovv.com/images/cabins/no-picture.jpeg"
         />
       ) : (
         <Image
-          src="https://glasstech.anisimovv.com/images/cabins/california.jpeg"
+          src="https://glasstech.anisimovv.com/images/cabins/no-picture.jpeg"
           width="156"
           height="250"
           alt="shower picture"
+          placeholder="blur"
+          blurDataURL="https://glasstech.anisimovv.com/images/cabins/no-picture.jpeg"
         />
       )}
       <div className="absolute bottom-4">
