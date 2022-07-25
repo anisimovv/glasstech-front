@@ -1,6 +1,6 @@
 import {
-  ArrowCircleLeftIcon,
-  ArrowCircleRightIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
 } from "@heroicons/react/outline";
 import Image from "next/image";
 import { useGetShowers } from "../../../hooks/api/useGetShowers";
@@ -35,7 +35,7 @@ export const ShowerPicker = () => {
         onClick={() => handleChangeShower(currentIndex - 1)}
       >
         <span className="hidden">Previous shower</span>
-        <ArrowCircleLeftIcon className="w-8 h-8 text-cyan-500" />
+        <ChevronLeftIcon className="w-8 h-8 text-cyan-500" />
       </button>
       <Image
         src="https://glasstech.anisimovv.com/images/cabins/california.jpeg"
@@ -49,7 +49,7 @@ export const ShowerPicker = () => {
         onClick={() => handleChangeShower(currentIndex + 1)}
       >
         <span className="hidden">Next shower</span>
-        <ArrowCircleRightIcon className="w-8 h-8 text-cyan-500" />
+        <ChevronRightIcon className="w-8 h-8 text-cyan-500" />
       </button>
     </div>
   );

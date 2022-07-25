@@ -18,54 +18,6 @@ export const ShowerForm = ({ shower, glass }: Props) => {
     dispatch({ type: "setGlass", payload: glass[0] });
   }, [shower, glass, dispatch]);
 
-  const { showerElementsInput } = state;
-
-  const handleElementFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { target } = e;
-    const { value, name } = target;
-
-    dispatch({
-      type: "setShowerElementInput",
-      payload: { id: name, value },
-    });
-  };
-
-  const handleElementFieldFocus = (e: React.FocusEvent<HTMLInputElement>) => {
-    const { target } = e;
-    const { value, name } = target;
-
-    const focusedElement = shower.elements.find(
-      (element) => element.id === name
-    ) as IElement;
-
-    if (!value) {
-      dispatch({
-        type: "setShowerElementInput",
-        payload: { id: name, value: focusedElement.defaultValue.toString() },
-      });
-
-      return;
-    }
-
-    if (+value < focusedElement.minValue) {
-      dispatch({
-        type: "setShowerElementInput",
-        payload: { id: name, value: focusedElement.minValue.toString() },
-      });
-
-      return;
-    }
-
-    if (+value > focusedElement.maxValue) {
-      dispatch({
-        type: "setShowerElementInput",
-        payload: { id: name, value: focusedElement.maxValue.toString() },
-      });
-
-      return;
-    }
-  };
-
   const handleBindingChange = (binding: IBinding) => {
     dispatch({ type: "setBindingType", payload: binding });
   };
@@ -82,16 +34,17 @@ export const ShowerForm = ({ shower, glass }: Props) => {
             <ShowerElementInput
               key={element.id}
               title={element.title}
-              value={showerElementsInput[element.id] ?? element.defaultValue}
-              name={element.id}
-              onChange={handleElementFieldChange}
-              onBlur={handleElementFieldFocus}
+              element={element}
             />
           );
         })}
       </div>
       <div>
-        <Listbox value={state.binding} onChange={handleBindingChange} className="mb-4">
+        <Listbox
+          value={state.binding}
+          onChange={handleBindingChange}
+          className="mb-4"
+        >
           <Listbox.Button>{state.binding?.title || ""}</Listbox.Button>
           <Listbox.Options>
             {shower.bindings.map((binding) => (
