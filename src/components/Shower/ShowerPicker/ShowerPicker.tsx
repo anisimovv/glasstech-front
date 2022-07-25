@@ -28,7 +28,7 @@ export const ShowerPicker = () => {
   return (
     <div className="flex items-center justify-center w-full h-fit relative p-2 pb-10">
       <button
-        className="absolute left-2 z-10 cursor-pointer"
+        className="p-0.5 absolute left-2 z-10 cursor-pointer rounded-full hover:bg-cyan-50 active:bg-cyan-100"
         type="button"
         onClick={() => handleChangeShower(currentIndex - 1)}
       >
@@ -48,7 +48,7 @@ export const ShowerPicker = () => {
         />
       </div>
       <button
-        className="absolute right-2 z-10 cursor-pointer"
+        className="absolute p-0.5 right-2 z-10 cursor-pointer rounded-full hover:bg-cyan-50 active:bg-cyan-100"
         type="button"
         onClick={() => handleChangeShower(currentIndex + 1)}
       >
