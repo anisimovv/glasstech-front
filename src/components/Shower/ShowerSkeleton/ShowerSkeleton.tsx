@@ -3,7 +3,7 @@ import placeholderPick from "../../../../public/images/cabins/no-picture.jpeg";
 
 export const ShowerSkeleton = () => {
   return (
-    <div className="flex flex-col sm:flex-row max-w-[600px] mx-4 sm:mx-auto mt-[-100px] bg-slate-50 rounded-lg drop-shadow-lg">
+    <div className="flex flex-col sm:flex-row max-w-[600px] mx-4 sm:mx-auto mt-[-100px] mb-6 bg-slate-50 rounded-lg drop-shadow-lg">
       <div className="flex flex-col sm:w-[240px] shrink-0 bg-white rounded-lg">
         <div className="mx-4 mt-10 w-2/3 h-6 bg-slate-100 rounded-lg" />
         <div className="flex flex-grow items-center justify-center w-full pb-8">
