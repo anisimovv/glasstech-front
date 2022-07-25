@@ -1,9 +1,7 @@
-import {
-  ChevronLeftIcon,
-  ChevronRightIcon,
-} from "@heroicons/react/outline";
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/outline";
 import Image from "next/image";
 import { useGetShowers } from "../../../hooks/api/useGetShowers";
+import NavigationDots from "../../NavigationDots";
 import { useShowerData } from "../shower-context";
 
 export const ShowerPicker = () => {
@@ -28,7 +26,7 @@ export const ShowerPicker = () => {
   };
 
   return (
-    <div className="flex items-center justify-center w-full h-fit relative p-2">
+    <div className="flex items-center justify-center w-full h-fit relative p-2 pb-10">
       <button
         className="absolute left-2 z-10 cursor-pointer"
         type="button"
@@ -43,6 +41,12 @@ export const ShowerPicker = () => {
         height="250"
         alt={"picture"} // TODO
       />
+      <div className="absolute bottom-4">
+        <NavigationDots
+          length={showers?.length as number}
+          current={state.currentShowerIndex}
+        />
+      </div>
       <button
         className="absolute right-2 z-10 cursor-pointer"
         type="button"
